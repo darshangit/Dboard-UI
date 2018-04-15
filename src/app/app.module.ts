@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ServiceRestartComponent } from './service-restart/service-restart.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ServiceRestartComponent
   ],
   imports: [
     BrowserModule
