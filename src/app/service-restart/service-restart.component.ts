@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { ServiceRestartService } from '../services/service-restart.service';
+import { Message } from 'primeng/primeng';
 
 @Component({
   selector: 'app-service-restart',
@@ -7,38 +9,56 @@ import { SelectItem } from 'primeng/components/common/selectitem';
   styleUrls: ['./service-restart.component.css']
 })
 export class ServiceRestartComponent implements OnInit {
+  environment: SelectItem[];
+  services: SelectItem[];
 
-    environment: SelectItem[];
-    services: SelectItem[];
+  selectedEnvironment: string;
+  selectedService: string;
+  isLoading = false;
+  tabSelected = 'serviceRestart';
 
-    selectedEnvironment: string;
-    selectedService: string;
+  msgs: Message[] = [];
 
-    visibleSidebar1;
+  constructor(private serviceRestart: ServiceRestartService) {}
 
-    ngOnInit(): void {
-    }
+  ngOnInit(): void {
+    this.serviceRestart.getEnvironments().subscribe(resp => {
+      this.environment = resp;
+    });
 
-    constructor() {
-        this.environment = [
-            {label: 'Dev', value: 'Dev'},
-            {label: 'BATest1', value: 'BATest1'},
-            {label: 'BATest2', value: 'BATest2'},
-            {label: 'UAT', value: 'UAT'},
-            {label: 'LikeProd', value: 'LikeProd'}
-        ];
+    this.serviceRestart.getServices().subscribe(resp => {
+      this.services = resp;
+    });
+  }
 
-        this.services = [
-          {label: 'watchlist-propose', value: 'watchlist-propose'},
-          {label: 'reports', value: 'reports'},
-          {label: 'user', value: 'user'},
-          {label: 'authorization', value: 'authorization'},
-          {label: 'apigateway', value: 'apigateway'},
-          {label: 'config-server', value: 'config-server'}
-        ];
-    }
+  restart() {
+    this.isLoading = true;
+    this.serviceRestart
+      .restart(this.selectedService, this.selectedEnvironment)
+      .subscribe(resp => {
+        this.msgs = [];
+        this.msgs.push({
+          severity: 'success',
+          summary: 'Yehaa',
+          detail: 'Service: ' + this.selectedService + ', Restarted Successfully'
+        });
 
-    restart() {
-      console.log('restart', this.selectedEnvironment, this.selectedService);
-    }
+        this.selectedEnvironment = null;
+        this.selectedService = null;
+        this.isLoading = false;
+      }, resp => {
+        this.msgs = [];
+        this.msgs.push({
+          severity: 'error',
+          summary: 'oops',
+          detail: 'Service: ' + this.selectedService + ', Restart Failed. Contact Dev Team.'
+        });
+
+        this.selectedEnvironment = null;
+        this.selectedService = null;
+        this.isLoading = false;
+      });
+
+    console.log('restart', this.selectedEnvironment, this.selectedService);
+  }
 }

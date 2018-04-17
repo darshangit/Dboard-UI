@@ -1,0 +1,9 @@
+ [
+          {"label": "Select Service", "value": "Service"},
+          {"label": "core-watchlist-propose", "value": "core-watchlist-propose"},
+          {"label": "core-reports", "value": "core-reports"},
+          {"label": "core-user", "value": "core-user"},
+          {"label": "infra-authorization", "value": "core-authorization"},
+          {"label": "infra-apigateway", "value": "core-apigateway"},
+          {"label": "infra-config-server", "value": "core-config-server"}
+ ]
