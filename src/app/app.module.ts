@@ -7,11 +7,13 @@ import { HttpModule } from '@angular/http';
 import { ServiceRestartComponent } from './service-restart/service-restart.component';
 import {DropdownModule, ButtonModule, GrowlModule} from 'primeng/primeng';
 import { ServiceRestartService } from './services/service-restart.service';
+import { PropertiesConfigComponent } from './properties-config/properties-config.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServiceRestartComponent
+    ServiceRestartComponent,
+    PropertiesConfigComponent
   ],
   imports: [
     BrowserModule,

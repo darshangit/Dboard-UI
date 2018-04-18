@@ -44,35 +44,35 @@
 <div class="container">
   <br/>
   <div class="box" [ngSwitch]="tabSelected">
-  <div *ngSwitchCase= 'serviceRestart' class="columns">
-    <div class="column is-2">
-      <!-- <h3>
+    <div *ngSwitchCase='serviceRestart' class="columns">
+      <div class="column is-2">
+        <!-- <h3>
         <span class="tag is-info">Select Environment</span>
       </h3> -->
-      <p-dropdown [options]="environment" [(ngModel)]="selectedEnvironment" [style]="{'width':'150px'}" filter="true">
-        <ng-template let-item pTemplate="selectedItem">
-          <span style="vertical-align:middle">{{item.label}}</span>
-        </ng-template>
-      </p-dropdown>
-    </div>
-    <div class="column is-3">
-      <!-- <h3>
+        <p-dropdown [options]="environment" [(ngModel)]="selectedEnvironment" [style]="{'width':'150px'}" filter="true">
+          <ng-template let-item pTemplate="selectedItem">
+            <span style="vertical-align:middle">{{item.label}}</span>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="column is-3">
+        <!-- <h3>
         <span class="tag is-info">Select Service</span>
       </h3> -->
-      <p-dropdown [options]="services" [(ngModel)]="selectedService" [style]="{'width':'200px'}" filter="true">
-        <ng-template let-item pTemplate="selectedItem">
-          <span style="vertical-align:middle">{{item.label}}</span>
-        </ng-template>
-      </p-dropdown>
+        <p-dropdown [options]="services" [(ngModel)]="selectedService" [style]="{'width':'200px'}" filter="true">
+          <ng-template let-item pTemplate="selectedItem">
+            <span style="vertical-align:middle">{{item.label}}</span>
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="column is-2">
+        <a class="button is-primary is-outlined" [ngClass]="isLoading ? 'is-loading' : '' " (click)="restart()">Restart</a>
+      </div>
     </div>
 
-    <div class="column is-2">
-      <a class="button is-primary is-outlined" [ngClass]="isLoading ? 'is-loading' : '' "(click)="restart()">Restart</a>
+    <div *ngSwitchCase='propertiesConfig'>
+      <app-properties-config></app-properties-config>
     </div>
   </div>
-
-  <div *ngSwitchCase= 'propertiesConfig' class="columns">
-    <p>Coming Soon</p>
-  </div>
-</div>
 </div>
