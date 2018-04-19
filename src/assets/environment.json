@@ -1,8 +1,8 @@
 [
             {"label": "Select Env", "value": "Environment"},
             {"label": "Dev", "value": "localhost"},
-            {"label": "BATest1", "value": "batest1.fr.world.socgen"},
-            {"label": "BATest2", "value": "batest2.fr.world.socgen"},
-            {"label": "UAT", "value": "uat.fr.world.socgen"},
-            {"label": "LikeProd", "value": "likeprod.fr.world.socgen"}
+            {"label": "BATest1", "value": "asdasd"},
+            {"label": "BATest2", "value": "asdasd"},
+            {"label": "UAT", "value": "asdasdasd"},
+            {"label": "LikeProd", "value": "asdasdasdasd"}
 ]
