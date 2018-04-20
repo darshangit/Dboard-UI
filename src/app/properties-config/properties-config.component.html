@@ -20,5 +20,89 @@
     <a class="button is-primary is-outlined" (click)="loadProperties()">Load</a>
   </div>
 </div>
-
 <hr/>
+
+<div class="columns">
+<p-table [value]="services">
+  
+  <ng-template pTemplate="header">
+      <tr>
+          <th style="width: 2.25em">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th>Key</th>
+          <th>Value</th>
+      </tr>
+  </ng-template>
+  
+  <ng-template pTemplate="body" let-rowData>
+      <tr>
+        <td>
+              <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td pEditableColumn>
+              <p-cellEditor>
+                  <ng-template pTemplate="input">
+                      <input type="text" [(ngModel)]="rowData.label">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.label}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+              <p-cellEditor>
+                  <ng-template pTemplate="input">
+                      <input type="text" [(ngModel)]="rowData.value" required>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.value}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary" let-rowData>
+    <div class="columns">
+      <div class="column">
+          <a class="button is-primary is-outlined" (click)="addProperty()">ADD</a>
+      </div>
+      <div class="column is-2 is-offset-8">
+          <a class="button is-danger is-outlined">Update All</a>
+      </div>
+      <div class="column is-1">
+          <a class="button is-info is-outlined">Update</a>
+      </div>
+    </div>
+  </ng-template>
+</p-table>
+</div>
+
+<p-dialog header="Add Property" [(visible)]="displayProperty" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+    <div class="ui-g ui-fluid" *ngIf="newProperty">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="key">Key</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="key" [(ngModel)]="key" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="value">Value</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="value" [(ngModel)]="value" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <a class="button is-danger is-outlined" (click)="save()">Close</a>
+            <a class="button is-success is-outlined" (click)="delete()">Save</a>
+        </div>
+    </p-footer>
+</p-dialog>
+

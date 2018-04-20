@@ -14,6 +14,13 @@ export class PropertiesConfigComponent implements OnInit {
 
   selectedEnvironment: string;
 
+  displayProperty = false;
+
+  newProperty: any = [];
+
+  key: string;
+  value: string;
+
   constructor(private serviceRestart: ServiceRestartService) { }
 
   ngOnInit() {
@@ -24,6 +31,11 @@ export class PropertiesConfigComponent implements OnInit {
 
   loadProperties() {
 
+  }
+
+  addProperty() {
+    this.displayProperty = true;
+    this.newProperty = {};
   }
 
 }
