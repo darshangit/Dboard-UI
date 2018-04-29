@@ -23,7 +23,7 @@
 <hr/>
 
 <div class="columns">
-<p-table [value]="services">
+<p-table [value]="services" [(selection)]="selectedProperties">
   
   <ng-template pTemplate="header">
       <tr>
@@ -36,7 +36,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData>
-      <tr>
+      <tr [pSelectableRow]="rowData">
         <td>
               <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -72,7 +72,7 @@
           <a class="button is-danger is-outlined">Update All</a>
       </div>
       <div class="column is-1">
-          <a class="button is-info is-outlined">Update</a>
+          <a class="button is-info is-outlined" (click)="update()">Update</a>
       </div>
     </div>
   </ng-template>
@@ -100,8 +100,8 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <a class="button is-danger is-outlined" (click)="save()">Close</a>
-            <a class="button is-success is-outlined" (click)="delete()">Save</a>
+            <a class="button is-danger is-outlined" (click)="closeProperty()">Close</a>
+            <a class="button is-success is-outlined" (click)="addProperty()">Save</a>
         </div>
     </p-footer>
 </p-dialog>
