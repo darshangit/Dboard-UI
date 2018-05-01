@@ -4,6 +4,7 @@ import { SelectItem, ConfirmationService, Message } from 'primeng/primeng';
 import { isNullOrUndefined } from 'util';
 import { PropertiesService } from '../services/properties.service';
 import { PropertiesModel } from '../models/properties-response.model';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-properties-config',
@@ -32,8 +33,10 @@ export class PropertiesConfigComponent implements OnInit {
 
   cols: any[];
 
+  showTable = false;
+
   constructor(private serviceRestart: ServiceRestartService, private propertiesService: PropertiesService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.serviceRestart.getServices().subscribe(resp => {
@@ -46,10 +49,10 @@ export class PropertiesConfigComponent implements OnInit {
   ];
   }
 
-
-
   loadProperties() {
+    this.selectedProperties = [];
     if (!isNullOrUndefined(this.selectedService) && !isNullOrUndefined(this.selectedEnvironment)) {
+    this.showTable = true;
     this.propertiesService.loadProperties(this.selectedService, this.selectedEnvironment).subscribe(resp => {
       this.loadedProperties = resp;
     });
@@ -89,22 +92,12 @@ export class PropertiesConfigComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure of this update?',
       accept: () => {
-        this.propertiesService.updateProperties(this.selectedProperties, this.selectedService, this.selectedEnvironment).subscribe(resp => {
-          this.loadedProperties = resp;
-          this.msgs = [];
-          this.msgs.push({
-            severity: 'success',
-            summary: 'Yehaa',
-            detail: 'Property(s) update of : ' + this.selectedService + ' on : ' + this.selectedEnvironment + ' Successful'
-          });
-        });
-
+        this.callService(this.selectedProperties, this.selectedService, this.selectedEnvironment, this.selectedEnvironment);
         this.selectedProperties = [];
       }
   });
   } else {
-    this.msgs = [];
-    this.msgs.push({
+    this.messageService.add({
       severity: 'error',
       summary: 'Oops',
       detail: 'Please select the properties to update'
@@ -113,12 +106,44 @@ export class PropertiesConfigComponent implements OnInit {
   }
 
   confirm() {
+    if (!isNullOrUndefined(this.selectedProperties) && this.selectedProperties.length > 0) {
     this.confirmationService.confirm({
         message: 'Are you sure to update across all environments?',
         accept: () => {
-
+          this.callService(this.selectedProperties, this.selectedService, this.selectedEnvironment, this.selectedEnvironment);
+          this.callService(this.selectedProperties, this.selectedService, 'env1', this.selectedEnvironment);
+          this.callService(this.selectedProperties, this.selectedService, 'env2', this.selectedEnvironment);
+          this.callService(this.selectedProperties, this.selectedService, 'env3', this.selectedEnvironment);
+          this.callService(this.selectedProperties, this.selectedService, 'env4', this.selectedEnvironment);
         }
     });
+  } else {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Oops',
+      detail: 'Please select the properties to update'
+    });
+  }
 }
+
+  callService(propetiesList: PropertiesModel[], serviceName, environment: string, currentEnvironment: string) {
+    this.propertiesService.updateProperties(propetiesList, serviceName, environment).subscribe(resp => {
+      if (currentEnvironment === environment) {
+        this.loadedProperties = resp;
+      }
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Yehaa',
+        detail: 'Property(s) update of : ' + serviceName + ' on : ' + environment + ' Successful'
+      });
+
+    }, resp => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Oops',
+        detail: 'Failed on : ' + this.selectedEnvironment
+      });
+    });
+  }
 
 }

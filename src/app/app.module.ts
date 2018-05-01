@@ -17,6 +17,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {EditorModule} from 'primeng/editor';
 import { PropertiesService } from './services/properties.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/components/common/messageservice';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     ServiceRestartService,
     PropertiesService,
-    ConfirmationService
+    ConfirmationService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

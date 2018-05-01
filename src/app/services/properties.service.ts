@@ -22,8 +22,4 @@ export class PropertiesService {
     return this.httpClient.post<PropertiesModel[]>('http://' + 'localhost' + ':6061/updateProperties/' + 'servicename',
     propetiesList, httpOptions);
   }
-
-  updatePropertiesAllEnvironments(propetiesList: PropertiesModel[], serviceName) {
-
-  }
 }

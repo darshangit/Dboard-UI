@@ -29,10 +29,10 @@
     <nav class="tabs">
       <div class="container">
         <ul>
-          <li class="is-active" (click)="tabSelected = serviceRestart ">
+          <li [ngClass]="tabSelected == serviceRestart ? 'is-active': ''" (click)="tabSelected = serviceRestart ">
             <a>Service Restart</a>
           </li>
-          <li (click)="tabSelected = propertiesConfig ">
+          <li [ngClass]="tabSelected == propertiesConfig ? 'is-active': ''" (click)="tabSelected = propertiesConfig ">
             <a>Properties Config</a>
           </li>
         </ul>

@@ -23,12 +23,12 @@
 </div>
 <hr/>
 
-<div class="columns">
+<div *ngIf = "showTable" class="columns">
 <p-table #prop [columns]="cols" [value]="loadedProperties" [(selection)]="selectedProperties">
 
     <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
-            <button type="button" pButton icon="fas fa-download" iconPos="left" label="All Data" (click)="prop.exportCSV()" style="float:right"></button>
+            <a class="button is-primary is-outlined" (click)="prop.exportCSV()" style="float:right"><i class="fas fa-download"></i></a>
         </div>
     </ng-template>
 
