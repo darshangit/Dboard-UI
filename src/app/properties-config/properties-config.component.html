@@ -1,3 +1,4 @@
+<p-growl [(value)]="msgs"></p-growl>
 <div class="columns">
   <div class="column is-9 is-offset-4">
     <div class="buttons has-addons">
@@ -23,8 +24,14 @@
 <hr/>
 
 <div class="columns">
-<p-table [value]="services" [(selection)]="selectedProperties">
-  
+<p-table #prop [columns]="cols" [value]="loadedProperties" [(selection)]="selectedProperties">
+
+    <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fas fa-download" iconPos="left" label="All Data" (click)="prop.exportCSV()" style="float:right"></button>
+        </div>
+    </ng-template>
+
   <ng-template pTemplate="header">
       <tr>
           <th style="width: 2.25em">
@@ -43,10 +50,10 @@
           <td pEditableColumn>
               <p-cellEditor>
                   <ng-template pTemplate="input">
-                      <input type="text" [(ngModel)]="rowData.label">
+                      <input type="text" [(ngModel)]="rowData.key">
                   </ng-template>
                   <ng-template pTemplate="output">
-                      {{rowData.label}}
+                      {{rowData.key}}
                   </ng-template>
               </p-cellEditor>
           </td>
@@ -69,7 +76,7 @@
           <a class="button is-primary is-outlined" (click)="addProperty()">ADD</a>
       </div>
       <div class="column is-2 is-offset-8">
-          <a class="button is-danger is-outlined">Update All</a>
+          <a class="button is-danger is-outlined" (click)="confirm()">Update All</a>
       </div>
       <div class="column is-1">
           <a class="button is-info is-outlined" (click)="update()">Update</a>
@@ -106,3 +113,4 @@
     </p-footer>
 </p-dialog>
 
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>

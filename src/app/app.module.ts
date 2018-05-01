@@ -8,12 +8,15 @@ import { ServiceRestartComponent } from './service-restart/service-restart.compo
 import {DropdownModule, ButtonModule, GrowlModule, CheckboxModule, InputTextModule, DataGridModule,
   CodeHighlighterModule, InputTextareaModule, DialogModule, CalendarModule, TabViewModule, SharedModule,
    SelectButtonModule, DataTableModule, ToggleButtonModule, SliderModule,
-   TooltipModule, PickListModule, ChartModule, PasswordModule, PanelModule, PanelMenuModule } from 'primeng/primeng';
+   TooltipModule, PickListModule, ChartModule, PasswordModule, PanelModule, PanelMenuModule,
+   ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { ServiceRestartService } from './services/service-restart.service';
 import { PropertiesConfigComponent } from './properties-config/properties-config.component';
 import {TableModule} from 'primeng/table';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {EditorModule} from 'primeng/editor';
+import { PropertiesService } from './services/properties.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +27,7 @@ import {EditorModule} from 'primeng/editor';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ButtonModule,
     TableModule,
@@ -49,10 +53,13 @@ import {EditorModule} from 'primeng/editor';
     PickListModule,
     ChartModule,
     MultiSelectModule,
-    EditorModule
+    EditorModule,
+    ConfirmDialogModule
   ],
   providers: [
-    ServiceRestartService
+    ServiceRestartService,
+    PropertiesService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

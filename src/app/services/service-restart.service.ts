@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 // tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
 import { SelectItem } from 'primeng/primeng';
-import { ServiceRestartRequestModel } from '../request-models/service-restart-request.model';
+import { ServiceRestartRequestModel } from '../models/service-restart-request.model';
 
 @Injectable()
 export class ServiceRestartService {
