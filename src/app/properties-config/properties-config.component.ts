@@ -115,6 +115,7 @@ export class PropertiesConfigComponent implements OnInit {
           this.callService(this.selectedProperties, this.selectedService, 'env2', this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env3', this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env4', this.selectedEnvironment);
+          this.selectedProperties = [];
         }
     });
   } else {
@@ -126,8 +127,8 @@ export class PropertiesConfigComponent implements OnInit {
   }
 }
 
-  callService(propetiesList: PropertiesModel[], serviceName, environment: string, currentEnvironment: string) {
-    this.propertiesService.updateProperties(propetiesList, serviceName, environment).subscribe(resp => {
+  callService(propertiesList: PropertiesModel[], serviceName, environment: string, currentEnvironment: string) {
+    this.propertiesService.updateProperties(propertiesList, serviceName, environment).subscribe(resp => {
       if (currentEnvironment === environment) {
         this.loadedProperties = resp;
       }
@@ -141,7 +142,7 @@ export class PropertiesConfigComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Oops',
-        detail: 'Failed on : ' + this.selectedEnvironment
+        detail: 'Failed on : ' + serviceName
       });
     });
   }
