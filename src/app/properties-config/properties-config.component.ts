@@ -147,4 +147,20 @@ export class PropertiesConfigComponent implements OnInit {
     });
   }
 
+  remove() {
+    this.selectedProperties.forEach(element => {
+      element.type = 'DELETE';
+    });
+
+    this.update();
+  }
+
+  removeAll() {
+    this.selectedProperties.forEach(element => {
+      element.type = 'DELETE';
+    });
+
+    this.confirm();
+  }
+
 }
