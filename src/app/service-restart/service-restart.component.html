@@ -30,10 +30,10 @@
       <div class="container">
         <ul>
           <li [ngClass]="tabSelected == serviceRestart ? 'is-active': ''" (click)="tabSelected = serviceRestart ">
-            <a>Service Restart</a>
+            <a data-intro='Hello step one!'>Service Restart</a>
           </li>
           <li [ngClass]="tabSelected == propertiesConfig ? 'is-active': ''" (click)="tabSelected = propertiesConfig ">
-            <a>Properties Config</a>
+            <a data-intro='Hello step one!'>Properties Config</a>
           </li>
         </ul>
       </div>
@@ -76,3 +76,4 @@
     </div>
   </div>
 </div>
+

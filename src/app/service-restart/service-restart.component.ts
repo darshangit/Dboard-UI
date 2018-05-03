@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { ServiceRestartService } from '../services/service-restart.service';
 import { Message } from 'primeng/primeng';
+import { introJs } from 'intro.js';
 
 @Component({
   selector: 'app-service-restart',
@@ -19,7 +20,8 @@ export class ServiceRestartComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private serviceRestart: ServiceRestartService) {}
+  constructor(private serviceRestart: ServiceRestartService) {
+  }
 
   ngOnInit(): void {
     this.serviceRestart.getEnvironments().subscribe(resp => {
@@ -29,6 +31,7 @@ export class ServiceRestartComponent implements OnInit {
     this.serviceRestart.getServices().subscribe(resp => {
       this.services = resp;
     });
+     introJs().start();
   }
 
   restart() {
