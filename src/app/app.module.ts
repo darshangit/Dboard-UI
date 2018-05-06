@@ -18,11 +18,17 @@ import {EditorModule} from 'primeng/editor';
 import { PropertiesService } from './services/properties.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './services/login.service';
+import { RouteGuardService } from './services/route-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
     ServiceRestartComponent,
-    PropertiesConfigComponent
+    PropertiesConfigComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -55,13 +61,16 @@ import { MessageService } from 'primeng/components/common/messageservice';
     ChartModule,
     MultiSelectModule,
     EditorModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     ServiceRestartService,
     PropertiesService,
     ConfirmationService,
-    MessageService
+    MessageService,
+    LoginService,
+    RouteGuardService
   ],
   bootstrap: [AppComponent]
 })

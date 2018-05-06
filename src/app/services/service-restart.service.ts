@@ -21,6 +21,13 @@ export class ServiceRestartService {
         }).catch(this.handleError);
     }
 
+    getAOPEnvironments(): Observable<SelectItem[]> {
+
+        return this.http.get('../../assets/environment-aop.json').map((response: Response) => {
+            return response.json() as SelectItem[];
+        }).catch(this.handleError);
+    }
+
     getServices(): Observable<SelectItem[]> {
         return this.http.get('../../assets/services.json').map((response: Response) => {
             return response.json() as SelectItem[];

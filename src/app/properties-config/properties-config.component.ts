@@ -5,6 +5,7 @@ import { isNullOrUndefined } from 'util';
 import { PropertiesService } from '../services/properties.service';
 import { PropertiesModel } from '../models/properties-response.model';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-properties-config',
@@ -35,10 +36,14 @@ export class PropertiesConfigComponent implements OnInit {
 
   showTable = false;
 
+  isAOP = false;
+
   constructor(private serviceRestart: ServiceRestartService, private propertiesService: PropertiesService,
-    private confirmationService: ConfirmationService, private messageService: MessageService) { }
+    private confirmationService: ConfirmationService, private messageService: MessageService,
+  private loginService: LoginService) { }
 
   ngOnInit() {
+  this.isAOP = this.loginService.getIsAOP();
     this.serviceRestart.getServices().subscribe(resp => {
       this.services = resp;
     });
@@ -110,12 +115,17 @@ export class PropertiesConfigComponent implements OnInit {
     this.confirmationService.confirm({
         message: 'Are you sure to update across all environments?',
         accept: () => {
+          if (this.isAOP ) {
+            this.callService(this.selectedProperties, this.selectedService, this.selectedEnvironment, this.selectedEnvironment);
+            this.callService(this.selectedProperties, this.selectedService, 'prod', this.selectedEnvironment);
+            this.selectedProperties = [];
+          } else {
           this.callService(this.selectedProperties, this.selectedService, this.selectedEnvironment, this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env1', this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env2', this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env3', this.selectedEnvironment);
           this.callService(this.selectedProperties, this.selectedService, 'env4', this.selectedEnvironment);
-          this.selectedProperties = [];
+        }
         }
     });
   } else {

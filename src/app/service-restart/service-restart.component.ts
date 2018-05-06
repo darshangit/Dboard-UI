@@ -3,6 +3,7 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 import { ServiceRestartService } from '../services/service-restart.service';
 import { Message } from 'primeng/primeng';
 import { introJs } from 'intro.js';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-service-restart',
@@ -20,13 +21,21 @@ export class ServiceRestartComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private serviceRestart: ServiceRestartService) {
+  constructor(private serviceRestart: ServiceRestartService, private loginService: LoginService) {
   }
 
   ngOnInit(): void {
-    this.serviceRestart.getEnvironments().subscribe(resp => {
-      this.environment = resp;
-    });
+    const isAOP = this.loginService.getIsAOP();
+
+    if (isAOP) {
+      this.serviceRestart.getAOPEnvironments().subscribe(resp => {
+        this.environment = resp;
+      });
+    } else {
+      this.serviceRestart.getEnvironments().subscribe(resp => {
+        this.environment = resp;
+      });
+    }
 
     this.serviceRestart.getServices().subscribe(resp => {
       this.services = resp;

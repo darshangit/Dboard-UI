@@ -1,13 +1,20 @@
 <p-growl [(value)]="msgs"></p-growl>
 <div class="columns">
   <div class="column is-9 is-offset-4">
-    <div class="buttons has-addons">
+    <div *ngIf="!isAOP; else aopElse"class="buttons has-addons">
       <span class="button" [ngClass]="selectedEnvironment === 'Dev' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'Dev'">Dev</span>
       <span class="button" [ngClass]="selectedEnvironment === 'Batest-1' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'Batest-1'">Batest-1</span>
       <span class="button" [ngClass]="selectedEnvironment === 'Batest-2' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'Batest-2'">Batest-2</span>
       <span class="button" [ngClass]="selectedEnvironment === 'UAT' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'UAT'">UAT</span>
       <span class="button" [ngClass]="selectedEnvironment === 'Like Prod' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'Like Prod'">Like Prod</span>
     </div>
+
+    <ng-template #aopElse><div class="buttons has-addons">
+        <span class="button" [ngClass]="selectedEnvironment === 'Cert' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'Cert'">Cert</span>
+        <span class="button" [ngClass]="selectedEnvironment === 'PROD' ? 'is-info is-selected' : '' " (click)="selectedEnvironment = 'PROD'">PROD</span>
+      </div>
+    </ng-template>
+    
   </div>
 </div>
 
